@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Patient} from '../patient';
+import {Patient} from '../models/patient';
 import {HttpClient} from '@angular/common/http';
-import {RegisterService } from '../register.service';
+import {PatientService } from '../services/patient.service';
 import {Location} from '@angular/common';
 @Component({
   selector: 'app-patient',
@@ -11,7 +11,7 @@ import {Location} from '@angular/common';
 export class PatientComponent implements OnInit {
   patient: Patient = new Patient;
   http: HttpClient;
-  constructor(private patientService: RegisterService,private LocationService : Location) {
+  constructor(private patientService: PatientService,private LocationService : Location) {
     
     this.patient.firstName = '';
     this.patient.lastName = '';

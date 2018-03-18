@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Patient} from '../patient';
-import {RegisterService } from '../register.service';
+import {Patient} from '../models/patient';
+import {PatientService } from '../services/patient.service';
 import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-viewpatient',
@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 export class ViewpatientComponent implements OnInit {
   patients : Patient[];
   records : Observable<Patient[]>;
-  constructor(private patientService: RegisterService) { }
+  constructor(private patientService: PatientService) { }
 
   ngOnInit() {
     this.records = this.patientService.getRecords();
