@@ -1,14 +1,23 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+
+    header("Access-Control-Allow-Origin: ".$_SERVER['HTTP_ORIGIN']);
+}
+else {
+    header("Access-Control-Allow-Origin: *");
+}
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type,withCredentials');
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Request-Headers: X-PINGOTHER, Content-Type');
 header("Content-Type: application/json");
+session_start();
 function executeQuery($conn,$query,$data = [] ) {
     $res = null;
-    if(count($data) == 0)
+    if(count($data) == 0) {
     
         $res = pg_query($conn,$query);
+    }
     else {
 
         $res = pg_query_params($conn,$query,$data);
@@ -20,21 +29,84 @@ function executeQuery($conn,$query,$data = [] ) {
     }
    return $res;
 }
+
+
+//login
+function login($conn,$raw_json) {
+
+    $username = validate('username',$raw_json->{'username'});
+    $password = validate('password',$raw_json->{'password'});
+    $res = executeQuery($conn,'SELECT username,password FROM admins WHERE LOWER(username) = LOWER($1)',[$username]);
+
+    $single_row = pg_fetch_array($res);
+
+    if(password_verify($password,$single_row['password'])) {
+        
+        $_SESSION['username'] = $single_row['username']; 
+        print json_encode(['success' => true]);
+
+    }
+    else {
+
+        print json_encode(['success' => false]);
+    }
+
+}
+
+function loggedIn() {
+
+    if(!isset($_SESSION['username'])) {
+
+       print json_encode(['success' => false]);
+    }
+    else {
+
+         print json_encode(['success' => true]);
+
+    }
+
+}
+
+function logout() {
+
+    session_destroy();
+    print json_encode(['success' => true]);
+
+}
+function validate($name,$value) {
+
+    if(empty(trim($value))) {
+        throw new Exception($name .' cannot be blank');
+    }
+
+    return $value;
+}
 //addPatient
 function addPatient($db_conn,$raw_json)
 {
+    if ( ! isset($_SESSION['username']) ) {
     
-    executeQuery($db_conn,'BEGIN;');
+        throw new Exception('Access Denied');
+    }
+    $name = validate('Name',$raw_json->{'firstName'});
+    $last_name = validate('Last Name',$raw_json->{'lastName'});
+    $id_number = validate('Id Number',$raw_json->{'IdNumber'});
+
+    executeQuery($db_conn,'START TRANSACTION');
     executeQuery($db_conn,'INSERT INTO patients(first_name,last_name,id_number) VALUES($1,$2,$3);',
-    [$raw_json->{'firstName'},$raw_json->{'lastName'},$raw_json->{'IdNumber'}
-    ]);
-    executeQuery($db_conn,'COMMIT;');
+    [$name,$last_name,$id_number]);
+    executeQuery($db_conn,'COMMIT TRANSACTION;');
     print json_encode(['success' => 'Patient Record Captured']);
 
 }
 
 //getPatients
 function getPatients($db_conn) {
+    
+    if ( ! isset($_SESSION['username']) ) {
+    
+        throw new Exception('Access Denied');
+    }
 
     $patients = [];
 
@@ -54,10 +126,15 @@ function getPatients($db_conn) {
 
 //delete record
 function deletePatient($db_conn,$raw_json) {
-      
-    $res = executeQuery($db_conn,'DELETE FROM patients WHERE id_number = $1',[$raw_json->{'IdNumber'}]);
     
-    print json_encode(['success' => 'Delete Patient']);
+    if ( !isset($_SESSION['username']) ) {
+    
+        throw new Exception('Access Denied');
+    }
+    $id_number = validate('IdNumber',$raw_json->{'IdNumber'});
+    $res = executeQuery($db_conn,'DELETE FROM patients WHERE id_number = $1',[$id_number]);
+    
+    print json_encode(['success' => 'Deleted Patient']);
     
 }
 
@@ -86,7 +163,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         
     }
     catch(Exception $e) {
-
+ 
         print json_encode(['error' => $e->getMessage()]);
         
     }

@@ -1,11 +1,9 @@
 <div class="form-group">
-  <label for="username">Username</label>
-  <input type="text" >
+  <label for="username" >Username</label>
+  <input type="text" [(ngModel)]="admin.username">
 </div>
-
 <div class="form-group">
-  <label for="password">Password</label>
-  <input type="text" >
-
+  <label for="password" >Password</label>
+  <input type="password" [(ngModel)] = "admin.password">
 </div>
-<button class="btn btn-primary">Login</button>
+<button class="btn btn-primary" (click)="login()">Login</button>
