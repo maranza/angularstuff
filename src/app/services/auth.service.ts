@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import {RequestOptions} from '@angular/http';
+import { RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Admin } from '../models/admin';
 import { Configs } from '../config';
@@ -10,29 +10,15 @@ export class AuthService {
   private status: boolean;
 
   constructor(private http: HttpClient) { }
-
+  //check if logged in 
   isLoggedIn(): boolean {
 
-    this.http.post<Response>(Configs.URL + '?callback=loggedIn', null)
-      .subscribe(data => {
-
-        if (data['error']) {
-
-          this.status = false;
-        }
-
-        else if (data['success'] == true) {
-
-          this.status = true;
-        }
-        else {
-
-          this.status = false;
-
-        }
-      });
-
-    return this.status;
+    if (localStorage.getItem('username')) {
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 
   authenticate(AdminDetails: Admin): Observable<Response> {
@@ -43,7 +29,8 @@ export class AuthService {
   }
 
   logout(): Observable<Response> {
-
+    
+    localStorage.clear();
     return this.http.post<Response>(Configs.URL + '?callback=logout', null);
   }
 

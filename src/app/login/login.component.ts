@@ -10,13 +10,11 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   public admin: Admin = new Admin();
-  constructor(private authService: AuthService, private route: Router) { }
+  constructor(private authService: AuthService, private route: Router) {
+
+  }
 
   ngOnInit() {
-
-
-    this.route.navigate(['/dashboard']);
-
 
   }
 
@@ -35,6 +33,7 @@ export class LoginComponent implements OnInit {
         if (data['success'] == true) {
 
           this.route.navigate(['/dashboard']);
+          localStorage.setItem('username', this.admin.username);
         }
 
         else {
