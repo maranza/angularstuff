@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../models/patient';
-import { PatientService } from '../services/patient.service';
+import { Patient } from '../../models/patient';
+import { PatientService } from '../../services/patient.service';
 import { Observable } from 'rxjs/Observable';
 @Component({
   selector: 'app-viewpatient',
-  templateUrl: './viewpatient.component.html',
-  styleUrls: ['./viewpatient.component.css']
+  templateUrl: './list_patients.component.html',
+  styleUrls: ['./list_patients.component.css']
 })
-export class ViewpatientComponent implements OnInit {
+export class ListPatientsComponent implements OnInit {
   patients: Patient[];
   records: Observable<Patient[]>;
   constructor(private patientService: PatientService) { }

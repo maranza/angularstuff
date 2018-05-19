@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../models/patient';
+import { Patient } from '../../models/patient';
 import { HttpClient } from '@angular/common/http';
-import { PatientService } from '../services/patient.service';
+import { PatientService } from '../../services/patient.service';
 import { Router } from '@angular/router';
 @Component({
   selector: 'app-patient',
-  templateUrl: './patient.component.html',
-  styleUrls: ['./patient.component.css']
+  templateUrl: './add_patient.component.html',
+  styleUrls: ['./add_patient.component.css']
 })
-export class PatientComponent implements OnInit {
+export class AddPatientComponent implements OnInit {
   patient: Patient = new Patient;
   http: HttpClient;
   constructor(private patientService: PatientService, private router: Router) {
@@ -32,7 +32,7 @@ export class PatientComponent implements OnInit {
       }
       else {
 
-        this.router.navigate(['/view']);
+        this.router.navigate(['dashboard/view']);
       }
 
     }
