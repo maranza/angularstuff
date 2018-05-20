@@ -117,10 +117,62 @@ function getPatients($db_conn) {
         $patients[] = [ 
             'IdNumber' => $row['id_number'],
             'firstName' => $row['first_name'],
-            'lastName' => $row['last_name']
+            'lastName' => $row['last_name'],
+            'uuid' => $row['uuid']
         ];
     }
     print json_encode($patients);
+}
+//
+function updatePatient($db_conn, $raw_json) {
+    
+    if ( ! isset($_SESSION['username']) ) {
+    
+        throw new Exception('Access Denied');
+    }
+    $first_name = validate('Name',$raw_json->{'firstName'});
+    $last_name = validate('Last Name',$raw_json->{'lastName'});
+    $id_number = validate('Id Number',$raw_json->{'IdNumber'});
+    $uuid = validate('uuid',$raw_json->{'uuid'});
+
+    executeQuery($db_conn,'START TRANSACTION;');
+    $query = 'UPDATE patients SET first_name=$1, last_name=$2, id_number=$3 WHERE uuid = $4';
+    $res = executeQuery($db_conn,$query,[$first_name,$last_name,$id_number, $uuid]);
+    executeQuery($db_conn,'COMMIT TRANSACTION;');
+
+    if($res){
+        print json_encode(['success' => 'updated Patient']);
+    }
+    
+
+
+
+
+}
+
+
+//get patient record
+function getPatient($db_conn,$raw_json) {
+    
+    if ( ! isset($_SESSION['username']) ) {
+    
+        throw new Exception('Access Denied');
+    }
+
+    $patient = [];
+    $uuid = validate('uuid',$raw_json->{'uuid'});
+    $res = executeQuery($db_conn,'SELECT * FROM patients WHERE uuid = $1',[$uuid]);
+
+    while($row = pg_fetch_array($res)) {
+
+        $patient[] = [ 
+            'IdNumber' => $row['id_number'],
+            'firstName' => $row['first_name'],
+            'lastName' => $row['last_name'],
+            'uuid' => $row['uuid']
+        ];
+    }
+    print json_encode($patient);
 
 }
 
@@ -131,8 +183,8 @@ function deletePatient($db_conn,$raw_json) {
     
         throw new Exception('Access Denied');
     }
-    $id_number = validate('IdNumber',$raw_json->{'IdNumber'});
-    $res = executeQuery($db_conn,'DELETE FROM patients WHERE id_number = $1',[$id_number]);
+    $uuid = validate('uuid',$raw_json->{'uuid'});
+    $res = executeQuery($db_conn,'DELETE FROM patients WHERE uuid = $1',[$uuid]);
     
     print json_encode(['success' => 'Deleted Patient']);
     

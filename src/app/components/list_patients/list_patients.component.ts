@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Patient } from '../../models/patient';
 import { PatientService } from '../../services/patient.service';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-viewpatient',
   templateUrl: './list_patients.component.html',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs/Observable';
 export class ListPatientsComponent implements OnInit {
   patients: Patient[];
   records: Observable<Patient[]>;
-  constructor(private patientService: PatientService) { }
+  constructor(private patientService: PatientService,private router: Router) { }
 
   ngOnInit() {
     this.records = this.patientService.getRecords();
@@ -30,7 +31,7 @@ export class ListPatientsComponent implements OnInit {
   }
   deletePatient(index: any): void {
 
-    this.patientService.deleteRecord(this.patients[index].IdNumber).subscribe(data => {
+    this.patientService.deleteRecord(this.patients[index].uuid).subscribe(data => {
 
       if (data['error']) {
 
@@ -44,6 +45,14 @@ export class ListPatientsComponent implements OnInit {
 
     });
 
+    
+
+  }
+
+  editPatient(uuid: any) : void{
+
+    this.router.navigate(['dashboard/viewpatient/'+uuid]);
+ 
   }
 
 }

@@ -12,14 +12,24 @@ export class PatientService {
      
   }
 
+  getRecord(uuid: any): Observable<Patient[]>{
+
+    return this.http.post<Patient[]>(Configs.URL+'?callback=getPatient',{uuid: uuid});
+  }
+
   getRecords() : Observable<Patient[]> {
 
     return this.http.post<Patient[]>(Configs.URL+'?callback=getPatients',null);
     
   }
 
-  deleteRecord(idNumber: string) : Observable<Response> {
+  updateRecord(patient:Patient): Observable<Patient[]>{
 
-    return this.http.post<Response>(Configs.URL+'?callback=deletePatient',{IdNumber:idNumber});
+    return this.http.post<Patient[]>(Configs.URL+'?callback=updatePatient',patient);
+  }
+
+  deleteRecord(uuid: string) : Observable<Response> {
+
+    return this.http.post<Response>(Configs.URL+'?callback=deletePatient',{uuid:uuid});
   }
 }

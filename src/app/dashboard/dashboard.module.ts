@@ -6,9 +6,11 @@ import { NavbarComponent } from '../components/navbar/navbar.component';
 import { DashboardComponent  }    from './dashboard.component';
 import { AddPatientComponent } from '../components/add_patient/add_patient.component';
 import { ListPatientsComponent } from '../components/list_patients/list_patients.component';
+import {ViewpatientComponent} from '../components/viewpatient/viewpatient.component';
 import { AuthService } from '../services/auth.service';
 import {PatientService} from '../services/patient.service';
 import { AdminComponent } from './admin/admin.component'
+
 
 @NgModule({
   imports: [
@@ -21,7 +23,8 @@ import { AdminComponent } from './admin/admin.component'
     DashboardComponent,
     AdminComponent,
     AddPatientComponent,
-    ListPatientsComponent
+    ListPatientsComponent,
+    ViewpatientComponent
   ],
   providers: [ AuthService ,PatientService]
 })
