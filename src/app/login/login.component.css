@@ -6,3 +6,37 @@
 
 }
 
+.btn-site {
+    border-radius: 0!important;
+    background-color: #343a40 !important;
+    color: white;
+    border: #343a40!important;
+}
+
+.card-header {
+    background-color: #343a40 !important;
+    color: white;
+    border-bottom: 0!important;
+}
+.card-header:first-child{
+    border-radius: 0!important;
+    border: #343a40 solid 2px;
+}
+.card-body{
+    border-radius: 0!important;
+}
+.form-control{
+    border-radius:0!important;
+}
+
+.ng-touched{
+    border-left: 3px solid blue;
+}
+
+.ng-valid{
+    border-left: 3px solid green;
+}
+
+.ng-invalid:not(form){
+    border-left: 3px solid red;
+}

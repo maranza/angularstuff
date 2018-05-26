@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
+  public error;
+
   public admin: Admin = new Admin();
   constructor(private authService: AuthService, private route: Router) {
 
@@ -24,13 +26,14 @@ export class LoginComponent implements OnInit {
 
       if (data['error']) {
 
-        alert(data['error']);
+        this.error = data['error'];
+        // alert(data['error']);
       }
 
       else {
 
 
-        if (data['success'] == true) {
+        if (data['success'] === true) {
 
           this.route.navigate(['/dashboard']);
           localStorage.setItem('username', this.admin.username);
@@ -38,7 +41,8 @@ export class LoginComponent implements OnInit {
 
         else {
 
-          alert('Invalid Credentials');
+          // alert('Invalid Credentials');
+          this.error = 'Invalid Credentials';
         }
       }
 
