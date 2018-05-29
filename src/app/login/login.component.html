@@ -1,13 +1,24 @@
-<div id="wallpaper">
-<div class="loginbox">
-<div class="form-group">
-  <label for="username" >Username</label>
-  <input type="text" [(ngModel)]="admin.username" class="form-control">
-</div>
-<div class="form-group">
-  <label for="password" >Password</label>
-  <input type="password" [(ngModel)] = "admin.password" class="form-control">
-</div>
-<button class="btn btn-primary" (click)="login()">Login</button>
-</div>
+<div class="mt-4 col-md-6 offset-3">
+  <div class="card">
+
+    <div class="card-header">Sign In</div>
+
+    <div class="card-body">
+    
+      <div class="alert alert-danger" [hidden]="!error">{{error}}</div>
+    
+      <div class="form-group">
+        <label for="username" >Username</label>
+        <input type="text" [(ngModel)]="admin.username" class="form-control" required>
+      </div>
+    
+      <div class="form-group">
+        <label for="password" >Password</label>
+        <input type="password" [(ngModel)] = "admin.password" class="form-control" required>
+      </div>
+    
+      <button class="btn btn-primary btn-site" (click)="login()">Login</button>
+
+    </div>
+  </div>
 </div>
