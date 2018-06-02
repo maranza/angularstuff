@@ -1,10 +1,10 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {AddPatientComponent} from '../components/add_patient/add_patient.component';
+import {AddPatientComponent} from './components/add_patient/add_patient.component';
 import { DashboardComponent  }    from './dashboard.component';
-import {AdminComponent} from './admin/admin.component'
-import {ViewpatientComponent} from '../components/viewpatient/viewpatient.component';
-import {ListPatientsComponent} from '../components/list_patients/list_patients.component';
+import {AdminComponent} from './components/admin/admin.component'
+import {ViewpatientComponent} from './components/viewpatient/viewpatient.component';
+import {ListPatientsComponent} from './components/list_patients/list_patients.component';
 import { AuthGuard } from '../guards/auth.guard';
 const dashBoardRoutes: Routes = [
   { 

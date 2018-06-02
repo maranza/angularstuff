@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Patient } from '../../models/patient';
-import { PatientService } from '../../services/patient.service';
+import { Patient } from '../../../models/patient';
+import { PatientService } from '../../../services/patient.service';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 @Component({
