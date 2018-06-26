@@ -23,7 +23,7 @@ export class AuthService {
 
   authenticate(AdminDetails: Admin): Observable<Response> {
 
-    return this.http.post<Response>(Configs.URL + '?callback=login', AdminDetails);
+    return this.http.post<Response>(Configs.URL + '?controller=authenticate&action=login', AdminDetails);
 
 
   }
@@ -31,7 +31,7 @@ export class AuthService {
   logout(): Observable<Response> {
     
     localStorage.clear();
-    return this.http.post<Response>(Configs.URL + '?callback=logout', null);
+    return this.http.post<Response>(Configs.URL + '?controller=authenticate&action=logout', null);
   }
 
 

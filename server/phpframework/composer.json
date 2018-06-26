@@ -1,0 +1,27 @@
+{
+    "name": "minimal framework",
+    "description": "minimal php framework consumes JSON and returns JSON as response ",
+    "authors": [
+        {
+            "name": "William Kwasidev",
+            "email": "kwesidev@gmail.com"
+        }
+    ],
+
+    "autoload" :{
+        "psr-4": {
+            "Framework\\":"src/Framework",
+            "App\\":"src/App"
+        }
+
+    },
+
+    "autoload-dev": {
+        "psr-4": {
+
+            "Tests\\": "tests"
+        }
+
+    },
+    "require": {}
+}

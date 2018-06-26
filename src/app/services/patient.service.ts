@@ -8,28 +8,28 @@ export class PatientService {
   constructor( private http: HttpClient) { }
   add(patient: Patient) : Observable<Response>{
 
-      return this.http.post<Response>(Configs.URL+'?callback=addPatient',patient);
+      return this.http.post<Response>(Configs.URL+'?&controller=patient&action=add',patient);
      
   }
 
   getRecord(uuid: any): Observable<Patient[]>{
 
-    return this.http.post<Patient[]>(Configs.URL+'?callback=getPatient',{uuid: uuid});
+    return this.http.post<Patient[]>(Configs.URL+'?controller=patient&action=get',{uuid: uuid});
   }
 
   getRecords() : Observable<Patient[]> {
 
-    return this.http.post<Patient[]>(Configs.URL+'?callback=getPatients',null);
-    
+    return this.http.post<Patient[]>(Configs.URL+'?controller=patient&action=list',null);
+
   }
 
   updateRecord(patient:Patient): Observable<Patient[]>{
 
-    return this.http.post<Patient[]>(Configs.URL+'?callback=updatePatient',patient);
+    return this.http.post<Patient[]>(Configs.URL+'?controller=patient&action=update',patient);
   }
 
   deleteRecord(uuid: string) : Observable<Response> {
 
-    return this.http.post<Response>(Configs.URL+'?callback=deletePatient',{uuid:uuid});
+    return this.http.post<Response>(Configs.URL+'?controller=patient&action=delete',{uuid:uuid});
   }
 }
