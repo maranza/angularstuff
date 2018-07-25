@@ -1,1 +1,1 @@
-Mimimal Framework
+Minimal Framework
