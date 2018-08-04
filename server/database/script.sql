@@ -27,3 +27,6 @@ CREATE VIEW patients_json AS(
     FROM 
         patients
 );
+
+CREATE UNIQUE INDEX uuid_idx_admin ON admins(uuid);
+CREATE UNIQUE INDEX uuid_idx_patient ON patients(uuid);
