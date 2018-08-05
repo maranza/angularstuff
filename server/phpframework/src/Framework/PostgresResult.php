@@ -4,64 +4,53 @@ use Framework\SqlResultInterface;
 final class PostgresResult implements SqlResultInterface {
 
     private $pgResult = null;
-
-
+    /**
+     * constructor
+     * @param bool pgResult
+     */
     public function __construct($pgResult) {
 
         $this->pgResult = $pgResult;
-       
     }
-
-    
-    //fetch records in associate array
-
+    /**
+     * @inhreit doc
+    */
     public function getRecords() {
-  
+
         if(!$this->pgResult) {
 
             throw new \Exception('Query Result is not Valid');
         } 
-
+        //PHP <= 7 does not support pg_fetch_all
+        if(PHP_VERSION_ID < 70118) {
+            $assoc = [];
+            while($row = pg_fetch_assoc($this->pgResult)){
+                $assoc [] = $row;
+            }
+            return $assoc;
+        }
         return pg_fetch_all($this->pgResult,PGSQL_ASSOC);
-                
-
     }
-
-
-    //fetch record in associate array
-
+      
+    /**
+     * @inhreit doc
+    */
     public function getRecord() {
-
         if(!$this->pgResult) {
 
             throw new \Exception('Query Result is not Valid');
         } 
-
-        return pg_fetch_array($this->pgResult,NULL,PGSQL_ASSOC);
-                
-
+        $row  = pg_fetch_assoc($this->pgResult);
+        return $row;           
     }
-
-    //check if query is valid or not
-
-    public function isValid() {
-
-        
-        return ($this->pgResult ? true : false);
-
-    }
-
- 
+    /**
+    * @inhreit doc
+    */
     public function nextRecord() {
-
         if(!$this->pgResult) {
-
             throw new \Exception('Query Result is not Valid');
         } 
-
-        return pg_fetch_row($this->pgResult,NULL,PGSQL_ASSOC);
-        
+        return pg_fetch_assoc($this->pgResult);  
     }
-
 
 }

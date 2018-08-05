@@ -1,48 +1,43 @@
 <?php
 namespace Framework\System;
- class Session {
-
+ class Session
+ {
     private $session;
     /**
-     * startup a session 
+     * constructor
      * @throws exception if session not able to start 
      */
-    public function __construct() {
-        
+    public function __construct() 
+    {
         $this->session = session_start();
-        if(!$this->session) {
-
+        if(!$this->session) 
+        {
             throw new \Exception('Failed to start Session');
         }    
-        
     }
-
     /**
      * set a session key
-     * @param key 
-     * @param value to be set
+     * @param string key 
+     * @param string value 
      * @return void
      */
-    public function __set($key,$value) {
-
-
+    public function __set($key,$value) 
+    {
         if(!array_key_exists($key,$_SESSION) ){
 
             $_SESSION[$key] = $value;
         } 
-        
     }
     /**
      * gets a specific session key
      * @param key to get
      * @return void
      */
-    public function __get($key) {
-
-        if(array_key_exists($key,$_SESSION)) {
-
+    public function __get($key) 
+    {
+        if(array_key_exists($key,$_SESSION)) 
+        {
             return $_SESSION[$key];
-
         }
     }
     /**
@@ -50,9 +45,10 @@ namespace Framework\System;
      * @param key key to be removed
      * @return void
      */
-    public function remove($key) {
-
-        if(array_key_exists($key,$_SESSION)){
+    public function remove($key) 
+    {
+        if(array_key_exists($key,$_SESSION))
+        {
 
             unset($_SESSION[$key]);
         }
@@ -61,12 +57,11 @@ namespace Framework\System;
      * Generates new session key before destroying
      * @return void
      */
-    public function destroy() {
-        
+    public function destroy() 
+    {
+        session_unset();
         session_regenerate_id();
         session_destroy();
-       
-
     }
 
 

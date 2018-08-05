@@ -3,7 +3,8 @@ namespace Framework;
 use Framework\DbConnectionInterface;
 use Framework\PostgresResult;
 
-class PostgresConnection  implements DbConnectionInterface {
+class PostgresConnection  implements DbConnectionInterface 
+{
 
     private $host = null;
     private $username = null;
@@ -12,8 +13,13 @@ class PostgresConnection  implements DbConnectionInterface {
     private $port = null;
     private $connection = null;
 
-  /* @params 
-   * setup postgres connection
+  /**
+   * constructor 
+   * @param string host
+   * @param string username
+   * @param string password
+   * @param string dbname
+   * @param int port
    */
    public function __construct($host = 'localhost',$username = 'postgres',$password = 'root',$dbname = 'medical',$port = 5432) 
    {
@@ -22,45 +28,39 @@ class PostgresConnection  implements DbConnectionInterface {
         $this->password = $password;
         $this->dbname = $dbname;
         $this->port = $port;
-
         $this->connect();
-       
     }
-    /*
-    * connect postgres
-    */
-    private function connect() {
- 
+    /**
+     * connect to postgres
+     * @throws exception
+     * @return void
+     */
+    private function connect() 
+    {
         $connectionString  = sprintf('host=%s port=%s dbname=%s user=%s password=%s',$this->host,$this->port,$this->dbname,$this->username,$this->password);
-        
         $this->connection = pg_connect($connectionString);
-   
         if(!$this->connection) {
-
             throw new \Exception('Failed to connect to PostgreSQL');
-
         }
-
-
     }
-
-   //execute directly results returned 
-   public function executeQuery($query)
-   { 
+     
+    /**
+    * @inherit doc
+    */
+    public function executeQuery($query)
+    { 
         $result = null;
         $result = pg_query($this->connection,$query);
-       
         if(!$result ) {
 
             throw new \Exception('Failed to Execute Query');
         }
 
-
         return new PostgresResult($result);
-
-    
-   }
-   //executes prepared statement and returns Result
+    }
+    /**
+    * @inherit doc
+    */
     public function preparedStatement($query,$paramValues = [])
     { 
         $result = null;
@@ -69,25 +69,19 @@ class PostgresConnection  implements DbConnectionInterface {
 
             throw new \Exception('Failed to execute Prepared Statement');
         }
-
-        return new PostgresResult($result);
-        
+        return new PostgresResult($result); 
     }
-
-
-    public function close() {
-
-
+    /**
+     * @inhreit doc
+     */
+    public function close() 
+    {
         if($this->connection !== null) {
-           
             $success =  pg_close($this->connection);
-             
             if(!$success) {
 
-                throw new \Exception('Failed to Close Connection');
-
+               throw new \Exception('Failed to Close Connection');
             }
-
         }
     }  
 

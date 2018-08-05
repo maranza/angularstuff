@@ -1,39 +1,47 @@
 <?php
 namespace Framework\System;
-use Framework\RequestResult;
-class Request {
+class Request 
+{
+    /**
+     * constructor
+     */
+    public function __construct() {
 
+        $_POST = $this->clean($_POST);
+        $_GET = $this->clean($_GET);
+    }
     /**
      * Clean up the array values recursively 
-     * @param array 
+     * @param array
+     * @return void
      */
     private function clean(&$array) 
-    {
-
-       
-        foreach($array as $key => &$value) {
-            
-            if(is_array($value)) {
+    {   
+        foreach($array as $key => &$value) 
+        {
+            if(is_array($value)) 
+            {
 
                 clean($value);
             }
-            else  {
+            else  
+            {
                 $array[$key] = trim($value); 
             }
         }
-
     }
     /**
-     * @ get post data 
-     * @ return post array
-     */
+    * get post data 
+    * @throws exception
+    * @return array
+    */
+    public function getPostInput() 
+    {
 
-    public function getPostInput() {
-
-        if(!$this->checkMethod()) {
+        if(!$this->checkMethod()) 
+        {
              
             throw new \Exception('Method Not Allowed');
-           
         }
 
         $postInput = $_POST;
@@ -41,33 +49,37 @@ class Request {
         return $postInput;
 
     }
-    private function checkMethod() {
+    /**
+     * Check the type of request method
+     * @return array
+     */
+    private function checkMethod() 
+    {
 
         return in_array($_SERVER['REQUEST_METHOD'],array('POST','DELETE','PUT'));
     }
     /**
      * get incoming json data and convert them to php array
-     * @throws exception if failed to decode json
+     * @throws exception 
      * @return jsonInput
      */
     public function getJsonInput()
-    {   
-
-        if(!$this->checkMethod()) {
+    {                  
+        if(!$this->checkMethod()) 
+        {
              
             throw new \Exception('Method Not Allowed');
-           
         }
         $jsonInput = json_decode(file_get_contents('php://input'),true);
-        if(!$jsonInput) {
+        if(!$jsonInput) 
+        {
 
             throw new \Exception('Json failed to parse');
         }
-        
         //clean up
         $this->clean($jsonInput);
         return $jsonInput;
-          
     }
 
 }
+                  
