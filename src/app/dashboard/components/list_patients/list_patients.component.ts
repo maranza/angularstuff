@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class ListPatientsComponent implements OnInit {
   patients: Patient[];
   records: Observable<Patient[]>;
-  constructor(private patientService: PatientService,private router: Router) { }
+  constructor(private patientService: PatientService, private router: Router) { }
 
   ngOnInit() {
     this.records = this.patientService.getRecords();
@@ -21,8 +21,7 @@ export class ListPatientsComponent implements OnInit {
 
         alert('Failed to retrive record');
 
-      }
-      else {
+      } else {
 
         this.patients = data;
       }
@@ -36,8 +35,7 @@ export class ListPatientsComponent implements OnInit {
       if (data['error']) {
 
         alert(data['error']);
-      }
-      else {
+      } else {
 
         this.patients.splice(index, 1);
 
@@ -45,14 +43,12 @@ export class ListPatientsComponent implements OnInit {
 
     });
 
-    
-
   }
 
-  editPatient(uuid: any) : void{
+  editPatient(uuid: any): void {
 
-    this.router.navigate(['dashboard/viewpatient/'+uuid]);
- 
+    this.router.navigate(['dashboard/viewpatient/' + uuid]);
+
   }
 
 }

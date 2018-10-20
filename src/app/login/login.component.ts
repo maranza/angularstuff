@@ -30,19 +30,11 @@ export class LoginComponent implements OnInit {
 
         this.error = data['error'];
         // alert(data['error']);
-      }
-
-      else {
-
-
+      } else {
         if (data['success'] === true) {
-
           this.route.navigate(['/dashboard']);
           localStorage.setItem('username', this.admin.username);
-        }
-
-        else {
-
+        } else {
           // alert('Invalid Credentials');
           this.error = 'Invalid Credentials';
         }

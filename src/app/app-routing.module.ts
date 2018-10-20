@@ -1,21 +1,21 @@
-import {NgModule} from '@angular/core';
-import {RouterModule,Routes, Router} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes, Router } from '@angular/router';
 
 
-const appRoutes : Routes = [
-     {
-         path: 'login'
-     }
+const appRoutes: Routes = [
+    {
+        path: 'login'
+    }
 
 
-]
+];
 
 @NgModule({
-    imports:[
+    imports: [
 
         RouterModule.forRoot(
             appRoutes,
-            {enableTracing: true,useHash: true}
+            { enableTracing: true, useHash: true }
 
         )
     ],
@@ -25,4 +25,4 @@ const appRoutes : Routes = [
 
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule { }

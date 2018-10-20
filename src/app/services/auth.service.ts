@@ -10,13 +10,14 @@ export class AuthService {
   private status: boolean;
 
   constructor(private http: HttpClient) { }
-  //check if logged in 
+  /**
+   * check if user is logged in
+   **/
   isLoggedIn(): boolean {
 
     if (localStorage.getItem('username')) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -24,12 +25,9 @@ export class AuthService {
   authenticate(AdminDetails: Admin): Observable<Response> {
 
     return this.http.post<Response>(Configs.URL + '?controller=authenticate&action=login', AdminDetails);
-
-
   }
 
   logout(): Observable<Response> {
-    
     localStorage.clear();
     return this.http.post<Response>(Configs.URL + '?controller=authenticate&action=logout', null);
   }

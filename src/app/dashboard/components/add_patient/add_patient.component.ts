@@ -29,8 +29,7 @@ export class AddPatientComponent implements OnInit {
       if (data['error']) {
 
         alert(data['error']);
-      }
-      else {
+      } else {
 
         this.router.navigate(['dashboard/view']);
       }

@@ -10,9 +10,9 @@ import { AuthService } from './services/auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginModule } from './login/login.module';
 import { DashBoardModule } from './dashboard/dashboard.module';
-const routes: Routes = [ 
+const routes: Routes = [
   { path: 'login', loadChildren: 'app/login/login.module#LoginModule' },
-  { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashBoardModule',canActivate:[AuthGuard] },
+  { path: 'dashboard', loadChildren: 'app/dashboard/dashboard.module#DashBoardModule', canActivate: [AuthGuard] },
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }
 ];
 
@@ -22,12 +22,12 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes, { enableTracing: true ,useHash: true}),
+    RouterModule.forRoot(routes, { enableTracing: true, useHash: true }),
     FormsModule,
     HttpModule,
     HttpClientModule,
   ],
-  providers: [AuthService, AuthGuard,httpInterceptorProviders],
+  providers: [AuthService, AuthGuard, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
