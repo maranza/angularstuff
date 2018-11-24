@@ -1,28 +1,58 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Patient } from '../models/patient';
 import { Configs } from '../config';
+import { catchError, retry } from 'rxjs/operators';
 @Injectable()
 export class PatientService {
   constructor(private http: HttpClient) { }
-  add(patient: Patient): Observable<Response> {
+  add(patient: Patient): Observable<any> {
 
-    return this.http.post<Response>(Configs.URL + '?&controller=patient&action=add', patient);
+    return this.http.post<any>(Configs.URL + 'PatientService', patient).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  getRecord(uuid: any): Observable<Patient[]> {
+  getRecord(uuid: any): Observable<Patient> {
 
-    return this.http.post<Patient[]>(Configs.URL + '?controller=patient&action=get', { uuid: uuid });
+    return this.http.get<Patient>(Configs.URL + 'PatientService?uuid=' + uuid).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getRecords(): Observable<Patient[]> {
-    return this.http.post<Patient[]>(Configs.URL + '?controller=patient&action=list', null);
+    return this.http.get<Patient[]>(Configs.URL + 'PatientService').pipe(
+      catchError(this.handleError)
+    );
   }
-  updateRecord(patient: Patient): Observable<Patient[]> {
-    return this.http.post<Patient[]>(Configs.URL + '?controller=patient&action=update', patient);
+  updateRecord(patient: Patient): Observable<any> {
+    return this.http.post<any>(Configs.URL + 'PatientService?uuid=' + patient.uuid, patient).pipe(
+      catchError(this.handleError)
+    );
   }
-  deleteRecord(uuid: string): Observable<Response> {
-    return this.http.post<Response>(Configs.URL + '?controller=patient&action=delete', { uuid: uuid });
+  deleteRecord(uuid: any): Observable<any> {
+    return this.http.delete<any>(Configs.URL + 'PatientService?uuid=' + uuid, {}).pipe(
+      catchError(this.handleError)
+    );
   }
+
+  private handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(
+        `Backend returned code ${error.status}, ` +
+        `body was: ${error.error}`);
+        return new ErrorObservable(error.error.msg);
+    }
+    // return an ErrorObservable with a user-facing error message
+    return new ErrorObservable(
+      'Something bad happened; please try again later.');
+  }
+
 }

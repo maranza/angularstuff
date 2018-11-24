@@ -14,33 +14,21 @@ export class ListPatientsComponent implements OnInit {
   constructor(private patientService: PatientService, private router: Router) { }
 
   ngOnInit() {
-    this.records = this.patientService.getRecords();
+
     this.patientService.getRecords().subscribe(data => {
-
-      if (data['error']) {
-
-        alert('Failed to retrive record');
-
-      } else {
-
         this.patients = data;
-      }
-
-    });
+      },
+        err => {
+          alert(err);
+      });
   }
   deletePatient(index: any): void {
 
     this.patientService.deleteRecord(this.patients[index].uuid).subscribe(data => {
-
-      if (data['error']) {
-
-        alert(data['error']);
-      } else {
-
         this.patients.splice(index, 1);
-
-      }
-
+      },
+      err => {
+        alert(err);
     });
 
   }

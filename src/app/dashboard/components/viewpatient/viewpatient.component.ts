@@ -20,14 +20,11 @@ export class ViewpatientComponent implements OnInit {
 
     this.patientService.getRecord(uuid).subscribe(data => {
 
-      if (data['error']) {
-
-        alert(data['error']);
-      } else {
-
-        this.patient = data[0];
-      }
-    });
+        this.patient = data;
+      },
+        err => {
+          alert(err);
+      });
 
   }
 
@@ -35,13 +32,10 @@ export class ViewpatientComponent implements OnInit {
 
     this.patientService.updateRecord(this.patient).subscribe(data => {
 
-      if (data['error']) {
-
-        alert(data['error']);
-      } else {
         this.router.navigate(['dashboard/view']);
-
-      }
+    },
+    err => {
+      alert(err);
 
     });
 

@@ -26,17 +26,11 @@ export class AddPatientComponent implements OnInit {
 
     this.patientService.add(this.patient).subscribe(data => {
 
-      if (data['error']) {
-
-        alert(data['error']);
-      } else {
-
         this.router.navigate(['dashboard/view']);
-      }
-
-    }
-
-    );
+    },
+    err => {
+        alert(err);
+    });
 
   }
 }

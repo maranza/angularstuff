@@ -25,20 +25,14 @@ export class LoginComponent implements OnInit {
   login(): void {
 
     this.authService.authenticate(this.admin).subscribe(data => {
-
-      if (data['error']) {
-
-        this.error = data['error'];
-        // alert(data['error']);
-      } else {
         if (data['success'] === true) {
           this.route.navigate(['/dashboard']);
           localStorage.setItem('username', this.admin.username);
-        } else {
-          // alert('Invalid Credentials');
-          this.error = 'Invalid Credentials';
         }
-      }
+    },
+    error => {
+
+        this.error = error;
 
     });
 
