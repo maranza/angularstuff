@@ -1,1 +1,1 @@
-export const Configs = { URL : 'http://10.42.0.26:8080/medicalapi/'};
+export const Configs = { URL : 'http://localhost:8080/medicalapi/'};
