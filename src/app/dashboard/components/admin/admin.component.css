@@ -1,0 +1,162 @@
+body {
+    /* font-size: .875rem; */
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    text-align: left;
+  }
+  
+  .feather {
+    width: 16px;
+    height: 16px;
+    vertical-align: text-bottom;
+  }
+  
+  /*
+   * Sidebar
+   */
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100; /* Behind the navbar */
+    padding: 48px 0 0; /* Height of navbar */
+    box-shadow: inset -1px 0 0 rgba(139, 18, 18, 0.1);
+    background-color: #212529!important;
+    color: #fff!important;
+  }
+  
+  .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: .5rem;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  }
+  
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+  }
+  
+  /* .sidebar .nav-link { */
+    /* font-weight: 400; */
+    /* color: #333; */
+    /* color: #fff; */
+  /* } */
+  
+  /* .sidebar .nav-link .feather {
+    margin-right: 4px;
+    color: #999;
+  }
+  
+  .sidebar .nav-link.active {
+    color: #007bff;
+  }
+  
+  .sidebar .nav-link:hover .feather,
+  .sidebar .nav-link.active .feather {
+    color: inherit;
+  } */
+
+  .sidebar .nav-item:last-child {
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar .nav-item .nav-link {
+    /* text-align: center; */
+    /* padding: 0.75rem 1rem; */
+    /* padding: 0.75rem 25px; */
+    padding-left: 5px!important;
+    margin: 5px!important;
+    margin-left: 11px!important;
+    width: 150px;
+  }
+  
+  .sidebar .nav-item .nav-link span {
+    font-size: 1rem;
+    /* display: block; */
+  }
+  
+  .sidebar .nav-item .dropdown-menu {
+    position: absolute !important;
+    -webkit-transform: none !important;
+    transform: none !important;
+    left: calc(90px + 0.5rem) !important;
+    margin: 0;
+  }
+  
+  .sidebar .nav-item .dropdown-menu.dropup {
+    bottom: 0;
+    top: auto !important;
+  }
+  
+  .sidebar .nav-item.dropdown .dropdown-toggle::after {
+    display: none;
+  }
+  
+  .sidebar .nav-item .nav-link {
+    margin: auto;
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .sidebar .nav-item .nav-link:active, .sidebar .nav-item .nav-link:focus, .sidebar .nav-item .nav-link:hover {
+    color: rgba(255, 253, 27, 0.75);
+  }
+  
+  .sidebar-heading {
+    font-size: .75rem;
+    text-transform: uppercase;
+  }
+  
+  /*
+   * Content
+   */
+  
+  .container{
+    padding-top: 60px!important;
+  }
+
+  [role="main"] {
+    padding-top: 48px;  /*Space for fixed navbar*/
+  }
+  .banner{
+    margin-bottom: 50px!important;
+  }
+  
+  /*
+   * Navbar
+   */
+  
+  /* .navbar-brand {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    font-size: 1rem;
+    background-color: rgba(0, 0, 0, .25);
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .25);
+  }
+  
+  .navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+  } */
+  
+  .form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+  }
+  
+  .form-control-dark:focus {
+    border-color: transparent;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+  }
+  
