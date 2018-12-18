@@ -2,80 +2,8 @@
 
 <div class="container-fluid">
     <div class="row">
-      <nav class="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div class="sidebar-sticky">
-          <ul class="nav flex-column">
 
-            <li class="nav-item active border-bottom">
-                <a class="nav-link" href="index.html">
-                  <i class="fas fa-fw fa-tachometer-alt"></i>
-                  <span>Administration</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="patient">
-                  <i class="fas fa-fw fa-chart-area"></i>
-                  <span>Add Patient</span></a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" routerLink="view">
-                  <i class="fas fa-fw fa-folder"></i>
-                  <span>View Patients</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" routerLink="view">
-                  <i class="fas fa-fw fa-table"></i>
-                  <span>Patients</span></a>
-              </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="bar-chart-2"></span>
-                Reports
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="layers"></span>
-                Integrations
-              </a>
-            </li>
-          </ul>
-
-          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Saved reports</span>
-            <a class="d-flex align-items-center text-muted" href="#">
-              <span data-feather="plus-circle"></span>
-            </a>
-          </h6>
-          <ul class="nav flex-column mb-2">
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Current month
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Last quarter
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Social engagement
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                <span data-feather="file-text"></span>
-                Year-end sale
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+    <app-sidenav></app-sidenav>
 
       <main role="main" class="col-md-10 ml-sm-auto col-lg-10 px-4">
 
