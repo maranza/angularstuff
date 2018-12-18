@@ -10,6 +10,7 @@ import { ViewpatientComponent } from './components/viewpatient/viewpatient.compo
 import { AuthService } from '../services/auth.service';
 import { PatientService } from '../services/patient.service';
 import { AdminComponent } from './components/admin/admin.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AddPatientComponent,
     ListPatientsComponent,
     ViewpatientComponent,
+    SidenavComponent,
   ],
   providers: [AuthService, PatientService]
 })
