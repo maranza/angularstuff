@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Patient } from '../models/patient';
 import { Configs } from '../config';
 import { catchError, retry } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 @Injectable()
 export class PatientService {
   constructor(private http: HttpClient) { }
@@ -48,11 +48,9 @@ export class PatientService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error}`);
-        return new ErrorObservable(error.error.msg);
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable(
-      'Something bad happened; please try again later.');
+    return throwError('Something bad happened; please try again later.');
   }
 
 }

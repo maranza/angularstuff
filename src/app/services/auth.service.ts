@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { RequestOptions } from '@angular/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable} from 'rxjs/Observable';
-import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { Admin } from '../models/admin';
 import { Configs } from '../config';
 import { catchError, retry } from 'rxjs/operators';
+import { throwError } from 'rxjs';
 @Injectable()
 export class AuthService {
   private status: boolean;
@@ -47,14 +46,10 @@ export class AuthService {
       console.error(
         `Backend returned code ${error.status}, ` +
         `body was: ${error.error.success}`);
-        if (error.error.success === false) {
-          return new ErrorObservable('Invalid Username or Password');
-        }else {
-          return new ErrorObservable(error.error.msg);
-        }
+        
     }
     // return an ErrorObservable with a user-facing error message
-    return new ErrorObservable(
+    return throwError(
       'Something bad happened; please try again later.');
   }
 
